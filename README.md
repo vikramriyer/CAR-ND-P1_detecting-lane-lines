@@ -4,6 +4,8 @@ The goals / steps of this project are the following:
 * Make a pipeline that finds lane lines on the road
 * Reflecting the work done in a report
 
+![Lane Line](https://raw.githubusercontent.com/vikramriyer/CAR-ND-P1_detecting-lane-lines/master/test_images_output/solidYellowLeft.jpg)
+
 ---
 
 ### Reflection
