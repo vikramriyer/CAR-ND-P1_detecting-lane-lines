@@ -32,13 +32,13 @@ The edge pixels obtained from the Edge detection pipeline are then passed on to 
 
 #### Modifying the draw_lines() function.
 
-### 2. Potential shortcomings with the current pipeline
+### Potential shortcomings with the current pipeline
 I will describe the main points that can be considered shortcomings of the project
  - **Parameters**:
   There were so many parameters to tune and one had to regressively run and check whether the desired output was obtained. Though the parameters were intuitive, a lot of them were hardcoded so as to entertain the edges in the region of interest.
   The perspective used was that of a drivers. Though this is good to get started, a camera or sensor might be mounted somewhere else and this might create problems to the hardcoded region of interest.
  - **Over fitting**:
   Since so many parameters were selected manually, there is a high probability that the (hyper) parameters chosen could over fit the current video. Changes to the image's features like intensity, time of the day, luminosity, etc could highly alter the way the current algorithm works
-### 3. Possible improvements
+### Possible improvements
 - Learning the parameters using a auto-regressive method could be very helpful. A neural network might learn these (hyper) parameters better. 
 - The case I mentioned about the current model (manual) over fitting could be reduced if a neural network is used. A train-test validation split of the data before publishing the results could probably improve the current accuracy. But again, the traditional computer vision only method might prove to be very costly in terms of time consumption. 
