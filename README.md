@@ -28,7 +28,7 @@ The ones having value between the above 2 are considered of they are connected t
     
 #### 2. Hough Transform
     
-The edge pixels obtained from the Edge detection pipeline are then passed on to the hough space. Now, the points/pixels in the image space ( y = mx + b ) are transformed to lines in the hough space ( b = (-x)m + y ). Now, due to the nature of the algorithm to find the slope and intercept in the polar coordinates, the undefined condition is avoided and the grids points (m,b) having the most number of votes having a value greater than the threshold are returned and these points in the hough space get converted as lines in the image space and qualify as edges.
+The edge pixels obtained from the Edge detection pipeline are then passed on to the hough space. Now, the points/pixels in the image space ( y = mx + b ) are transformed to lines in the hough space ( b = (-x)m + y ). Now, due to the nature of the algorithm to find the slope and intercept in the polar coordinates, the undefined condition incase of a zero slope is avoided. The grid points (m,b) i.e. in the hough space that have the most number of votes are returned back. The important constrain is that they must have a value greater than the threshold. These points in the hough space get converted as lines in the image space and qualify as edges.
 
 #### Modifying the draw_lines() function.
 
@@ -62,6 +62,7 @@ cv2.line(img, (Min_Max_Right.min_x, Min_Max_Right.min_y), (Min_Max_Right.max_x, 
 ```
 
 2. Part 2 (successful effort)
+
 We separate out the left and the right lines and individually before finding the averages by accumulating the recent 10 values of the slopes and intercepts that I gained by fitting all the points using the fitline function. The mandatory videos saw an improvement, however, the challenge video has considerable issues with the current pipeline as well.
 
 As we get the accumulated slopes and intercepts, it is very easy to get the coordinates using the formula of a line in (x,y) space i.e. y = mx + c.
