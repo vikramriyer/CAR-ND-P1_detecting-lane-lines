@@ -2,7 +2,7 @@
 ---
 The goals / steps of this project are the following:
 * Make a pipeline that finds lane lines on the road
-* Reflect on your work in a written report
+* Reflecting the work done in a report
 
 ---
 
@@ -32,6 +32,40 @@ The edge pixels obtained from the Edge detection pipeline are then passed on to 
 
 #### Modifying the draw_lines() function.
 
+1. Part 1 (partly successful effort)
+
+Initially, the I found out the min and max variables that were possible for x and y at the top and bottom in the region of interest. When run individually, the images showed good results and the time complexity did not seem to bother me much.
+However, the slighest of change in the intensities created major issues with this model.
+
+Below is code snippet for the logic
+```
+class Min_Max_Left:
+    min_x, min_y, max_x, max_y = 960 + 10, 540 + 10, 0, 0
+    
+class Min_Max_Right:
+    min_x, min_y, max_x, max_y = 960 + 10, 540 + 10, 0, 0
+    
+# find the min and max of x and y for left and right lines and draw lines
+for i in range(len(left)):
+    Min_Max_Left.min_x = min(Min_Max_Left.min_x, left[i][0])
+    Min_Max_Left.max_x = max(Min_Max_Left.max_x, left[i][0])
+    Min_Max_Left.min_y = min(Min_Max_Left.min_y, left[i][1])
+    Min_Max_Left.max_y = max(Min_Max_Left.max_y, left[i][1])
+cv2.line(img, (Min_Max_Left.min_x, Min_Max_Left.max_y), (Min_Max_Left.max_x, Min_Max_Left.min_y), color, thickness)
+
+for i in range(len(right)):
+    Min_Max_Right.min_x = min(Min_Max_Right.min_x, right[i][0])
+    Min_Max_Right.max_x = max(Min_Max_Right.max_x, right[i][0])
+    Min_Max_Right.min_y = min(Min_Max_Right.min_y, right[i][1])
+    Min_Max_Right.max_y = max(Min_Max_Right.max_y, right[i][1])
+cv2.line(img, (Min_Max_Right.min_x, Min_Max_Right.min_y), (Min_Max_Right.max_x, Min_Max_Right.max_y), color, thickness)
+```
+
+2. Part 2 (successful effort)
+We separate out the left and the right lines and individually before finding the averages by accumulating the recent 10 values of the slopes and intercepts that I gained by fitting all the points using the fitline function. The mandatory videos saw an improvement, however, the challenge video has considerable issues with the current pipeline as well.
+
+As we get the accumulated slopes and intercepts, it is very easy to get the coordinates using the formula of a line in (x,y) space i.e. y = mx + c.
+
 ### Potential shortcomings with the current pipeline
 I will describe the main points that can be considered shortcomings of the project
  - **Parameters**:
@@ -42,3 +76,4 @@ I will describe the main points that can be considered shortcomings of the proje
 ### Possible improvements
 - Learning the parameters using a auto-regressive method could be very helpful. A neural network might learn these (hyper) parameters better. 
 - The case I mentioned about the current model (manual) over fitting could be reduced if a neural network is used. A train-test validation split of the data before publishing the results could probably improve the current accuracy. But again, the traditional computer vision only method might prove to be very costly in terms of time consumption. 
+- A short trial stuff can be to replace gray scale with other workarounds like HSL, HSV, etc. This could possibly ensure not much great results, but might be able to remove the small distortions that happen here and there.
