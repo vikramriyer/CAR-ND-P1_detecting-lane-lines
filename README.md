@@ -31,6 +31,7 @@ The ones having value between the above 2 are considered of they are connected t
 #### 2. Hough Transform
     
 The edge pixels obtained from the Edge detection pipeline are then passed on to the hough space. Now, the points/pixels in the image space ( y = mx + b ) are transformed to lines in the hough space ( b = (-x)m + y ). Now, due to the nature of the algorithm to find the slope and intercept in the polar coordinates, the undefined condition incase of a zero slope is avoided. The grid points (m,b) i.e. in the hough space that have the most number of votes are returned back. The important constrain is that they must have a value greater than the threshold. These points in the hough space get converted as lines in the image space and qualify as edges.
+Finally we use the weighted sum to add up the lines and original image so that they become one image. Since the name weighted, the function also has some parameters in alpha and beta which are the weights attached to the image 1 and image 2 respectively before adding them.
 
 #### Modifying the draw_lines() function.
 
