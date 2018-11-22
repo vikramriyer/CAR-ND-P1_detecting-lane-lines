@@ -76,7 +76,10 @@ I will describe the main points that can be considered shortcomings of the proje
   The perspective used was that of a drivers. Though this is good to get started, a camera or sensor might be mounted somewhere else and this might create problems to the hardcoded region of interest.
  - **Over fitting**:
   Since so many parameters were selected manually, there is a high probability that the (hyper) parameters chosen could over fit the current video. Changes to the image's features like intensity, time of the day, luminosity, etc could highly alter the way the current algorithm works
+ - **Curves**:
+  We as of now are using straight lines to predict where to drive. If there is a sudden curvature in the road, the robustness of the current algorithm is compromised. Though the lane markings correct themselves when coming onto a straingt road. However, the road only has curves or if driving on a hill, you are sure to drive right into the valley (remember doctor strange??!).
 ### Possible improvements
+- We are currently focusing only on drawing straight lines with a polynomial of degree 1. If we somehow figure out drawing curves, that would make the current algorithm more robust.
 - Learning the parameters using a auto-regressive method could be very helpful. A neural network might learn these (hyper) parameters better. 
 - The case I mentioned about the current model (manual) over fitting could be reduced if a neural network is used. A train-test validation split of the data before publishing the results could probably improve the current accuracy. But again, the traditional computer vision only method might prove to be very costly in terms of time consumption. 
 - A short trial stuff can be to replace gray scale with other workarounds like HSL, HSV, etc. This could possibly ensure not much great results, but might be able to remove the small distortions that happen here and there.
